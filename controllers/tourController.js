@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const toursData = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
 );
 
 exports.checkID = (req, res, next, val) => {
@@ -65,13 +65,11 @@ exports.createTour = (req, res) => {
           tour: newTour,
         },
       });
-    }
+    },
   );
 };
 
 exports.updateTour = (req, res) => {
-  const id = req.params.id;
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -81,8 +79,6 @@ exports.updateTour = (req, res) => {
 };
 
 exports.deleteTour = (req, res) => {
-  const id = req.params.id;
-
   res.status(204).json({
     status: 'success',
     data: null,
