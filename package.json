@@ -4,7 +4,7 @@
   "description": "Learning node, express and mongoDB",
   "main": "app.js",
   "scripts": {
-    "start:dev": "nodemon server.js",
+    "start": "nodemon server.js",
     "start:prod": "SET NODE_ENV=productio&&nodemon server.js"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.12.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
