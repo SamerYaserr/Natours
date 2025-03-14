@@ -22,11 +22,6 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
-  if (req.params.id.length !== 24)
-    return next(
-      new AppError('Invalid ID!. The ID should contains 24 characters', 404),
-    );
-
   const tour = await Tour.findById(req.params.id);
 
   if (!tour) return next(new AppError('No tour found with that ID', 404));
@@ -51,11 +46,6 @@ exports.createTour = catchAsync(async (req, res, next) => {
 });
 
 exports.updateTour = catchAsync(async (req, res, next) => {
-  if (req.params.id.length !== 24)
-    return next(
-      new AppError('Invalid ID!. The ID should contains 24 characters', 404),
-    );
-
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -72,11 +62,6 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteTour = catchAsync(async (req, res, next) => {
-  if (req.params.id.length !== 24)
-    return next(
-      new AppError('Invalid ID!. The ID should contains 24 characters', 404),
-    );
-
   const tour = await Tour.findByIdAndDelete(req.params.id);
 
   if (!tour) return next(new AppError('No tour found with that ID', 404));
