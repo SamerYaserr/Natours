@@ -1,6 +1,7 @@
 const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.getAllTours = catchAsync(async (req, res, next) => {
   const feature = new APIFeatures(Tour.find(), req.query)
@@ -21,7 +22,14 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
+  if (req.params.id.length !== 24)
+    return next(
+      new AppError('Invalid ID!. The ID should contains 24 characters', 404),
+    );
+
   const tour = await Tour.findById(req.params.id);
+
+  if (!tour) return next(new AppError('No tour found with that ID', 404));
 
   res.status(200).json({
     status: 'Success',
@@ -43,10 +51,17 @@ exports.createTour = catchAsync(async (req, res, next) => {
 });
 
 exports.updateTour = catchAsync(async (req, res, next) => {
+  if (req.params.id.length !== 24)
+    return next(
+      new AppError('Invalid ID!. The ID should contains 24 characters', 404),
+    );
+
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
+
+  if (!tour) return next(new AppError('No tour found with that ID', 404));
 
   res.status(200).json({
     status: 'success',
@@ -57,7 +72,14 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteTour = catchAsync(async (req, res, next) => {
-  await Tour.findByIdAndDelete(req.params.id);
+  if (req.params.id.length !== 24)
+    return next(
+      new AppError('Invalid ID!. The ID should contains 24 characters', 404),
+    );
+
+  const tour = await Tour.findByIdAndDelete(req.params.id);
+
+  if (!tour) return next(new AppError('No tour found with that ID', 404));
 
   res.status(204).json({
     status: 'success',
