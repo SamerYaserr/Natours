@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema(
   {
-    text: {
+    review: {
       type: String,
       required: [true, 'A review cannot be empty!'],
       trim: true,
