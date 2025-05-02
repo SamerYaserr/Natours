@@ -11,9 +11,11 @@ const login = async (email, password) => {
       },
     });
 
-    console.log(res);
+    window.setTimeout(() => {
+      location.assign('/');
+    }, 500);
   } catch (err) {
-    console.log(err.response.data);
+    alert(err.response.data);
   }
 };
 
