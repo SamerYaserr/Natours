@@ -14,18 +14,22 @@ const showAlerttt = (type, msg) => {
   window.setTimeout(hideAlerttt, 5000);
 };
 
-const updateData = async (name, email) => {
+const updateSettings = async (data, type) => {
+  const url =
+    type === 'data'
+      ? 'http://127.0.0.1:3000/api/v1/users/updateMe'
+      : 'http://127.0.0.1:3000/api/v1/users/updatePassword';
+
   try {
+    console.log(url);
+    console.log(data);
     const res = await axios({
       method: 'PATCH',
-      url: 'http://127.0.0.1:3000/api/v1/users/updateMe',
-      data: {
-        name,
-        email,
-      },
+      url,
+      data,
     });
 
-    showAlerttt('success', 'Data updated successfully!');
+    showAlerttt('success', `${type.toUpperCase()} updated successfully!`);
     window.setTimeout(() => {
       location.assign('/me');
     }, 500);
@@ -35,6 +39,7 @@ const updateData = async (name, email) => {
 };
 
 const updateDataForm = document.querySelector('.form-user-data');
+const updatePasswordForm = document.querySelector('.form-user-password');
 
 if (updateDataForm) {
   updateDataForm.addEventListener('submit', (e) => {
@@ -43,7 +48,28 @@ if (updateDataForm) {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
-    console.log(email);
-    updateData(name, email);
+    updateSettings({ name, email }, 'data');
+  });
+}
+
+if (updatePasswordForm) {
+  updatePasswordForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.querySelector('.btn--save-password').textContent = 'Updating...';
+
+    const currentPassword = document.getElementById('password-current').value;
+    const newPassword = document.getElementById('password').value;
+    const newPasswordConfirm =
+      document.getElementById('password-confirm').value;
+
+    await updateSettings(
+      { currentPassword, newPassword, newPasswordConfirm },
+      'password',
+    );
+
+    document.querySelector('.btn--save-password').textContent = 'Save password';
+    document.getElementById('password-current').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('password-confirm').value = '';
   });
 }
