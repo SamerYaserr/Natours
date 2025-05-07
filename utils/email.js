@@ -12,7 +12,13 @@ module.exports = class Emaill {
 
   newTransporter() {
     if (process.env.NODE_ENV === 'production') {
-      return 1;
+      return nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.GMAIL_LOGIN,
+          pass: process.env.GMAIL_PASSWORD,
+        },
+      });
     }
 
     return nodemailer.createTransport({
@@ -31,7 +37,6 @@ module.exports = class Emaill {
       url: this.url,
       subject,
     });
-    console.log(this.to);
 
     const mailOptions = {
       from: this.from,
