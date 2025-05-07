@@ -4,7 +4,7 @@ const { convert } = require('html-to-text');
 
 module.exports = class Emaill {
   constructor(user, url) {
-    this.to = user;
+    this.to = user.email;
     this.from = `Samer Yaser <${process.env.EMAIL_FROM}>`;
     this.url = url;
     this.firstName = user.name.split(' ')[0];
@@ -31,6 +31,7 @@ module.exports = class Emaill {
       url: this.url,
       subject,
     });
+    console.log(this.to);
 
     const mailOptions = {
       from: this.from,
@@ -47,5 +48,12 @@ module.exports = class Emaill {
 
   async sendWelcome() {
     await this.send('welcome', 'Welcome to the Natours Family!');
+  }
+
+  async sendPasswordReset() {
+    await this.send(
+      'passwordReset',
+      'Your password reset token (valid for 10 minutes)',
+    );
   }
 };
