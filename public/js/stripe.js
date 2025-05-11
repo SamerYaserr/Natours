@@ -1,24 +1,13 @@
 /* eslint-disable */
+import axios from 'axios';
+
+import { showAlert } from './alert';
 
 const stripe = Stripe(
   'pk_test_51RMuUdBX4QjKpZ0H9o4OCGKRwc2OsTOr7QFE3aNXNqjS5YN1kehhYqCFKj9mDNaEKBQBFem8DJiEBCsdeyMWx2Jd00b5Z3BgzX',
 );
 
-const hideeAlert = () => {
-  const el = document.querySelector('.alert');
-  if (el) el.parentElement.removeChild(el);
-};
-
-const showwAlert = (type, msg) => {
-  hideeAlert();
-
-  const markup = `<div class= "alert alert--${type}">${msg}</div>`;
-  document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-
-  window.setTimeout(hideeAlert, 5000);
-};
-
-const bookTour = async (tourId) => {
+export const bookTour = async (tourId) => {
   try {
     const session = await axios({
       method: 'GET',
@@ -29,16 +18,6 @@ const bookTour = async (tourId) => {
       sessionId: session.data.session.id,
     });
   } catch (err) {
-    showwAlert('Error', err);
+    showAlert('Error', err);
   }
 };
-
-const bookBtn = document.getElementById('book-tour');
-
-if (bookBtn) {
-  bookBtn.addEventListener('click', (e) => {
-    e.target.textContent = 'Processing...';
-    const tourId = e.target.dataset.tourId;
-    bookTour(tourId);
-  });
-}

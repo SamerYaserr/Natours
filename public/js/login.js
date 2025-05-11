@@ -1,20 +1,10 @@
 /* eslint-disable */
+import '@babel/polyfill';
+import axios from 'axios';
 
-const hideAlert = () => {
-  const el = document.querySelector('.alert');
-  if (el) el.parentElement.removeChild(el);
-};
+import { showAlert } from './alert';
 
-const showAlert = (type, msg) => {
-  hideAlert();
-
-  const markup = `<div class= "alert alert--${type}">${msg}</div>`;
-  document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-
-  window.setTimeout(hideAlert, 5000);
-};
-
-const login = async (email, password) => {
+export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -28,21 +18,25 @@ const login = async (email, password) => {
     showAlert('success', 'Logged in successfully!');
     window.setTimeout(() => {
       location.assign('/');
-    }, 500);
+    }, 1500);
   } catch (err) {
     showAlert('error', err.response.data.message);
   }
 };
 
-const loginForm = document.querySelector('.form--login');
-
-if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    login(email, password);
-  });
-}
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'http://127.0.0.1:3000/api/v1/users/logout',
+    });
+    if (res.data.status === 'success') {
+      if (window.location.href === 'http://127.0.0.1:3000/me')
+        location.assign('/');
+      else location.reload(true);
+      // console.log(window.location.href);
+    }
+  } catch (err) {
+    showAlert('error', 'Error logging out! Please try again.');
+  }
+};

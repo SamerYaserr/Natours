@@ -37,6 +37,8 @@ const connectSrcUrls = [
   'https://unpkg.com',
   'https://tile.openstreetmap.org',
   'https://js.stripe.com',
+  'ws://localhost:*',
+  'ws://127.0.0.1:*',
 ];
 const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
