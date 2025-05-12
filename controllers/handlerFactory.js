@@ -14,7 +14,7 @@ exports.getOne = (Model, popOptions) =>
     }
 
     res.status(200).json({
-      status: 'Success',
+      status: 'success',
       data: {
         doc,
       },
@@ -34,7 +34,7 @@ exports.getAll = (Model) =>
     const docs = await feature.query;
 
     res.status(200).json({
-      status: 'Success',
+      status: 'success',
       requestedAt: req.requestTime,
       result: docs.length,
       data: {
