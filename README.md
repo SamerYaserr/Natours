@@ -1,98 +1,110 @@
-# 🌿 Natours - Nature Tours Booking System
+# 🌿 Natours
+
+Natours is a full-stack tour-booking app with a RESTful API backend (Node.js, Express, MongoDB/Mongoose) and a server-side rendered frontend (Pug, Vanilla JS, CSS).
+
+## 🔨 Teck Stack
 
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-green)](https://nodejs.org/)
+[![PUG](https://img.shields.io/badge/%F0%9F%90%B6-%20PUG-73930a)](https://pugjs.org/api/getting-started.html)
+[![nodemon](https://img.shields.io/badge/nodemon-7aea0c?logo=nodemon&label=%20%20%20%20%20%20%20%20&labelColor=gray)](https://www.npmjs.com/package/nodemon/)
 [![Express](https://img.shields.io/badge/Express-4.x-lightgrey)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-6.0-blue)](https://www.mongodb.com/)
+[![Axois](https://img.shields.io/badge/%F0%9F%94%97-Axios-2e377f)](https://www.axios.com/)
 [![Stripe](https://img.shields.io/badge/Stripe-Payments-blueviolet)](https://stripe.com/)
 [![Deployed on Railway](https://img.shields.io/badge/Deployed-Railway-6441a5)](https://railway.app)
-
-Natours is a full-stack web application featuring a RESTful API and a server-side rendered website designed for booking tours.
-
-✅ **RESTful API Backend** (Node.js/Express)  
-✅ **Client-Side Rendered Website** (Vanilla JS + Pug templates + CSS)  
-✅ **Dtabase** (MongoDB with Mongoose for ORM)
+[![npm](https://img.shields.io/badge/npm-red?logo=npm&label=%20%20%20%20%20%20%20%20&labelColor=gray)](https://www.npmjs.com/)
+[![JWT](https://img.shields.io/badge/JWT-token-000000)](https://jwt.io/)
 
 ## 🌍 Live Demo
 
 <a href="https://natours-samer.up.railway.app/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Deployed_on-Railway-6441a5?logo=railway" alt="Railway"></a>
 
-## 🏗️ System Overview
+## 🏗️ Architecture
 
-### 1. RESTful API (Backend)
-
-A fully compliant REST API built with Express.js featuring:
-
-- Resource-based endpoints (`/tours`, `/users`, `/reviews`, `/bookings`)
-- Standard HTTP methods (GET, POST, PATCH, DELETE)
-- Stateless authentication with JWT
-- JSON responses
-- Proper status codes (200, 201, 400, 404, etc.)
-
-### 2. Client-Side Rendered Frontend
-
-- Pug templetes
-- DOM manipulation via JavaScript
-- Webpack for bundling
-- Axios for API communication
-- Modern ES6+ features
+- ### Backend:
+  - REST API with filtering, sorting, pagination, and aliasing
+  - **Stack:** Node.js, Express
+  - **Endpoints:** `/tours`, `/users`, `/reviews`, `/bookings`
+  - **Auth & Security:** JWT (HTTP-only cookies), rate limiting (100 req/hr), Helmet headers, NoSQL sanitization
+  - **Responses:** JSON, proper HTTP status codes
+- ### Frontend:
+  - **Templating:** Pug
+  - **Bundling & ES6:** Webpack, modern JavaScript
+  - **API Calls:** Axios
 
 ## ✨ Features
 
-### 🔐 Security
+- ### Security
 
-- JWT authentication with HTTP-only cookies
-- Rate limiting (100 req/hour)
-- Helmet security headers
-- Data sanitization against NoSQL injection
-- Password encryption with bcrypt
+  - JWT-based login/signup (bcrypt-hashed passwords)
+  - Rate limiting, Helmet, data sanitization
 
-### 📧 Email System
+- ### Email Notifications
 
-- Nodemailer with gmail integration
-- Real email delivery in production for:
-  - Welcoming clients on signing up
-  - Password resets
-  - Booking confirmations
+  - Nodemailer (Gmail) for welcome, password reset & booking confirmations
 
-### 💳 Payment System
+- ### Payments
 
-- Secure credit card payments with Stripe
-- Complete checkout flow
-- Webhook integration for payment confirmation
-- Booking creation on successful payment
+  - Stripe checkout, webhook listener → booking creation
 
-### 🗺️ Geospatial Features
+- ### Geospatial
 
-- Tours within radius search
-- Distance calculation to all tours from point
-- leaflet integration with interactive maps
+  - Radius search & distance calculations
+  - Leaflet map integration
 
-### 🖼️ Image Handling
-
-- User photo uploads (Multer + Sharp)
-- Multiple tour image uploads
-- Automatic image processing:
-  - Resizing to 500x500
-  - Format conversion to JPEG
-  - Quality optimization
+- ### Images
+  - Multer + Sharp for upload, resize (500×500), JPEG conversion & optimization
 
 ## API Documentation
 
 <a href="https://documenter.getpostman.com/view/42856951/2sB2jAbTKP" target="_blank" rel="noreferrer"><img src="https://run.pstmn.io/button.svg" alt="Run in Postman"></a>
 
-## 🚀 Quick Start
+## Installation
 
-### Prerequisites
+1. **Clone repository:**
+   ```bash
+   git clone https://github.com/SamerYaserr/Natours.git
+   ```
+2. **Initialize a Package.json File (if not already done):**
+   ```bash
+   npm init
+   ```
+3. **Install dependencies:**
 
-- Node.js 18+
-- MongoDB Atlas or local MongoDB
-- Stripe account
-- Gmail account (for emails)
+   ```bash
+   npm install
+   ```
 
-### Installation
+4. **Setting up env variables:**
 
-```bash
-git clone https://github.com/SamerYaserr/Natours.git
-cd Natours
-npm install
-```
+   ```
+   # Server Configuration
+   NODE_ENV=development
+   PORT=3000
+
+   # Database Configuration
+   DATABASE=<your_mongo_db_URL>
+   DATABASE_PASSWORD=<your_mongo_db_password>
+
+   # Authentication
+   JWT_SECRET=<your_jwt_secret_key>
+   JWT_EXPIRES_IN=<JWT_expiration_date>
+   JWT_COOKIE_EXPIRES_IN=<JWT_cookie_expiration_date>
+
+   # Email Services
+   ## Mailtrap (Development)
+   EMAIL_HOST=<sandbox.smtp.mailtrap.io>
+   EMAIL_PORT=587
+   EMAIL_USERNAME=<your_mailtrap_username>
+   EMAIL_PASSWORD=<your_mailtrap_password>
+
+   ## Gmail (Production)
+   GMAIL_LOGIN=<your_gmail>
+   GMAIL_PASSWORD=<your_gmail_app_key>
+
+   # Payments
+   STRIPE_SECRET_KEY=<your_stripe_secret_key>
+
+   # General Settings
+   EMAIL_FROM=<your_sender_email>
+   ```
