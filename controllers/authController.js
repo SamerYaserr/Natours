@@ -27,7 +27,7 @@ const createSendToken = (user, statusCode, res) => {
   user.password = undefined;
 
   res.status(statusCode).json({
-    status: 'Success',
+    status: 'success',
     token,
     data: {
       user,
@@ -198,11 +198,11 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select('+password');
 
-  if (!(await user.correctPassword(req.body.currentPassword)))
+  if (!(await user.correctPassword(req.body.passwordCurrent)))
     return next(new AppError('The provided password is wrong', 401));
 
-  user.password = req.body.newPassword;
-  user.passwordConfirm = req.body.newPasswordConfirm;
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
 
   createSendToken(user, 200, res);

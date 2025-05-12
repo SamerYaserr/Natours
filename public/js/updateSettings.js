@@ -7,7 +7,7 @@ export const updateSettings = async (type, data) => {
   try {
     const url =
       type === 'Password'
-        ? '/api/v1/users/updateMyPassword'
+        ? '/api/v1/users/updatePassword'
         : '/api/v1/users/updateMe';
 
     const res = await axios({
@@ -15,7 +15,6 @@ export const updateSettings = async (type, data) => {
       url,
       data,
     });
-
     if (res.data.status === 'success') {
       showAlert('success', `${type} updated successfully!`);
       //   location.reload(true);
