@@ -104,6 +104,7 @@ Natours is a full-stack tour-booking app with a RESTful API backend (Node.js, Ex
 
    # Payments
    STRIPE_SECRET_KEY=<your_stripe_secret_key>
+   STRIPE_WEBHOOK_SECRET=<your_stripe_webhook_secret_key>
 
    # General Settings
    EMAIL_FROM=<your_sender_email>
