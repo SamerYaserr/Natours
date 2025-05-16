@@ -81,6 +81,5 @@ if (bookBtn)
     bookTour(tourId);
   });
 
-if (alertMessage) {
+if (alertMessage && alertMessage.dataset.alert)
   successBooking(alertMessage.dataset.alert);
-}
