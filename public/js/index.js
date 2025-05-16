@@ -3,7 +3,7 @@ import { login, logout } from './login';
 import { signup } from './signup';
 import { displayMap } from './leaflet';
 import { updateSettings } from './updateSettings';
-import { bookTour } from './stripe';
+import { bookTour, successBooking } from './stripe';
 
 const MapPage = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
@@ -12,6 +12,7 @@ const logoutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const alertMessage = document.querySelector('body');
 
 if (MapPage) {
   const locations = JSON.parse(MapPage.dataset.locations);
@@ -79,3 +80,7 @@ if (bookBtn)
     const tourId = e.target.dataset.tourId;
     bookTour(tourId);
   });
+
+if (alertMessage) {
+  successBooking(alertMessage.dataset.alert);
+}

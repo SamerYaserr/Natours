@@ -21,3 +21,7 @@ export const bookTour = async (tourId) => {
     showAlert('error', err);
   }
 };
+
+export const successBooking = (message) => {
+  showAlert('success', message);
+};
